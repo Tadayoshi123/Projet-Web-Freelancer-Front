@@ -1,7 +1,7 @@
 import '@/styles/globals.scss';
 import { useRouter } from "next/router";
 import MainLayout from '@/components/layouts/MainLayout';
-import RegisterLayout from '@/components/layouts/AuthLayout';
+import AuthLayout from '@/components/layouts/AuthLayout';
 
 export default function App({ Component, pageProps }) {
  

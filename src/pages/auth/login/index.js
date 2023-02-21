@@ -24,7 +24,16 @@ const Index = () => {
 
   const submitLogin = (e) => {
     e.preventDefault();
-    console.log(userForm);
+    fetch("http://localhost:3030/api/v1/auth/login", {
+      body: JSON.stringify(userForm),
+      method: "POST",
+      headers: {
+        "Content-Type":"Application/json"
+      }
+    })
+      .then(res => res.json())
+      .then(data => console.log(data))
+      .catch(err=>console.log(err)) 
   }
 
   return (

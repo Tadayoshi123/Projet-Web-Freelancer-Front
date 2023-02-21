@@ -6,6 +6,10 @@
     align-items: center;
     .left__part {
         width: 50%;
+        .form__wrapper {
+            width: 350px;
+            margin: 0 auto;
+        }
     }
     .right__part {
         width: 50%;

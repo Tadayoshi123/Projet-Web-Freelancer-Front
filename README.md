@@ -1,5 +1,6 @@
 -> Créer un composant Input 
   -props : 
+    - label
     - name
     - type:password, text, email, number etc...
     - required: true / false

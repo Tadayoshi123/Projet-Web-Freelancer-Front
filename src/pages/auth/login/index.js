@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import useFetch from "@/hooks/useFetch";
 import Input from "@/components/UI/Input";
 import Button from "@/components/UI/Button/";
 import Title from "@/components/UI/Title";
@@ -10,9 +11,7 @@ const Index = () => {
     password:""
   });
 
-  useEffect(() => {
-    console.log(userForm);
-  },[userForm])
+  const {fetchData, data, error, loading} = useFetch({url:"/auth/login", method:"POST", body: userForm})
 
 
   const handleChange = (e) => {
@@ -24,16 +23,8 @@ const Index = () => {
 
   const submitLogin = (e) => {
     e.preventDefault();
-    fetch("http://localhost:3030/api/v1/auth/login", {
-      body: JSON.stringify(userForm),
-      method: "POST",
-      headers: {
-        "Content-Type":"Application/json"
-      }
-    })
-      .then(res => res.json())
-      .then(data => console.log(data))
-      .catch(err=>console.log(err)) 
+    fetchData();
+    console.log(data);
   }
 
   return (

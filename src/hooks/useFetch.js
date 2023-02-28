@@ -6,8 +6,7 @@ const useFetch = ({ url, method, body }) => {
   const [error, setError] = useState(null);
 
   const fetchData = async () => {
-    console.log(url);
-    setLoading(true)
+    setLoading(true);
     try {
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}${url}`, {
         headers: {
@@ -19,9 +18,12 @@ const useFetch = ({ url, method, body }) => {
         }
       });
       const dataJson = await response.json();
+      if (!dataJson.success) {
+        throw new Error(dataJson.message);
+      }
       setData(dataJson);
     }
-    catch(error) {
+    catch (error) {
       setError(error)
     }
     finally {

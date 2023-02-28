@@ -25,7 +25,7 @@ const Index = () => {
   const submitLogin = (e) => {
     e.preventDefault();
     fetchData();
-    console.log(data);
+    console.log(error);
   }
 
   return (
@@ -57,7 +57,11 @@ const Index = () => {
           className="btn__secondary"
         />
       </form>
-      <Notification type="success" message="test message"/>
+      {
+        error && (
+          <Notification type="warning" message={error.message}/>
+        )
+      }
     </>
   );
 

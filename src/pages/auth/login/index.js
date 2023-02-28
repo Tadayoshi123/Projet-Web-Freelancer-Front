@@ -3,6 +3,8 @@ import useFetch from "@/hooks/useFetch";
 import Input from "@/components/UI/Input";
 import Button from "@/components/UI/Button/";
 import Title from "@/components/UI/Title";
+import Loading from "@/components/UI/Loading";
+import Notification from "@/components/UI/Notification";
 
 const Index = () => {
 
@@ -12,7 +14,6 @@ const Index = () => {
   });
 
   const {fetchData, data, error, loading} = useFetch({url:"/auth/login", method:"POST", body: userForm})
-
 
   const handleChange = (e) => {
     setUserForm({
@@ -29,6 +30,7 @@ const Index = () => {
 
   return (
     <>
+      <Loading isLoad={loading} />
       <Title title="Login" Level="h1" />
       <form onSubmit={(e)=>submitLogin(e)}>
         <Input
@@ -55,6 +57,7 @@ const Index = () => {
           className="btn__secondary"
         />
       </form>
+      <Notification type="success" message="test message"/>
     </>
   );
 

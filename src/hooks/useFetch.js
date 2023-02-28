@@ -25,7 +25,9 @@ const useFetch = ({ url, method, body }) => {
       setError(error)
     }
     finally {
-      setLoading(false)
+      setTimeout(() => {
+        setLoading(false)
+      }, 1000)
     }
     
   }

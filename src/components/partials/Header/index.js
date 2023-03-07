@@ -1,12 +1,17 @@
-import {useRouter} from "next/router"
+import { useContext } from "react";
+import { useRouter } from "next/router";
 import styles from "./index.module.scss";
+import UserContext from "@/context/UserContext";
 import Logo from "../../../../public/images/logo/logo.svg";
 import NavItem from "@/components/UI/NavItem";
 import Button from "@/components/UI/Button";
 
 const Index = () => {
 
+  
   const router = useRouter();
+  
+  const { user, isLogged } = useContext(UserContext);
 
   const menu = [
     {
@@ -33,11 +38,19 @@ const Index = () => {
               <NavItem key={index} item={item} />
             ))
           }
-          <li className={styles.nav__item}>
-            <Button type="button" title="login" className="btn__primary" handleClick={
-              () => router.push('/auth/login')
-            }/>
-          </li>
+          {
+            isLogged ? (
+              <p>
+                Bonjour {user.firstName}
+              </p>
+            ) : (                
+            <li className={styles.nav__item}>
+              <Button type="button" title="login" className="btn__primary" handleClick={
+                () => router.push('/auth/login')
+              }/>
+            </li>
+            )
+          }
         </ul>
       </nav>
     </div>

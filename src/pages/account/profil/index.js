@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import UserContext from "@/context/UserContext";
 import {useRouter} from "next/router";
 import useFetch from "@/hooks/useFetch";
 import Button from "@/components/UI/Button";
@@ -7,6 +8,10 @@ import Modal from "@/components/UI/Modal";
 const Index = () => {  
 
   const router = useRouter();
+
+  const { isLogged, user } = useContext(UserContext);
+
+  console.log(user);
 
   const [token, setToken] = useState();
 

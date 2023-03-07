@@ -18,7 +18,7 @@ const Index = () => {
     password: ""
   });
 
-  const {fetchData, data, error, loading} = useFetch({url:'/auth/register', method:"POST", body:userForm})
+  const {fetchData, data, error, loading} = useFetch({url:'/auth/register', method:"POST", body:userForm, token:null})
     
   const handleChange = (e) => {
     setUserForm({

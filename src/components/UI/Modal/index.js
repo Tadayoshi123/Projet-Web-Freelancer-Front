@@ -1,6 +1,6 @@
 import style from "./index.module.scss";
 
-const Index = () => {
+const Index = ({children}) => {
   return (
     <>
       <div className="overlay"></div>

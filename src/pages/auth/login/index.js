@@ -17,7 +17,7 @@ const Index = () => {
     password:""
   });
 
-  const {fetchData, data, error, loading} = useFetch({url:"/auth/login", method:"POST", body: userForm})
+  const {fetchData, data, error, loading} = useFetch({url:"/auth/login", method:"POST", body: userForm, token:null})
 
   useEffect(() => {
     if (data.token) {

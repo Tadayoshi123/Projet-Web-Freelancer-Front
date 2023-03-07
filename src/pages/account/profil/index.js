@@ -31,7 +31,9 @@ const Index = () => {
     <div>
       {
         isOpen && (
-          <Modal/>
+          <Modal title="Modifier mon profil">
+            {/* children props ici */}
+          </Modal>
         )
       }
       <p>Profil page</p>

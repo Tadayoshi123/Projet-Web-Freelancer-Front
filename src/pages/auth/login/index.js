@@ -25,7 +25,6 @@ const Index = () => {
   const submitLogin = (e) => {
     e.preventDefault();
     fetchData();
-    console.log(error);
   }
 
   return (

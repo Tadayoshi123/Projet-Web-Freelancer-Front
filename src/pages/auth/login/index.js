@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import Link from "next/link";
+import { useRouter } from "next/router";
 import useFetch from "@/hooks/useFetch";
 import Input from "@/components/UI/Input";
 import Button from "@/components/UI/Button/";
@@ -8,12 +10,22 @@ import Notification from "@/components/UI/Notification";
 
 const Index = () => {
 
+  const router = useRouter();
+
   const [userForm, setUserForm] = useState({
     email: "",
     password:""
   });
 
   const {fetchData, data, error, loading} = useFetch({url:"/auth/login", method:"POST", body: userForm})
+
+  useEffect(() => {
+    if (data.token) {
+      console.log(data);
+      localStorage.setItem('token', data.token);
+      router.push('/account/profil');
+    }
+  },[data])
 
   const handleChange = (e) => {
     setUserForm({
@@ -61,6 +73,9 @@ const Index = () => {
           <Notification type="warning" message={error.message}/>
         )
       }
+      <p>
+        Vous n'avez pas de compte ? <Link href="/auth/register">Inscrivez-vous ?</Link>
+      </p>
     </>
   );
 

@@ -1,10 +1,15 @@
-import {useState} from 'react';
+import { useState } from 'react';
+import { useRouter } from 'next/router';
+import Link from "next/link";
 import Title from '@/components/UI/Title';
 import Input from "@/components/UI/Input";
 import Button from "@/components/UI/Button";
+import Notification from "@/components/UI/Notification";
 import useFetch from '@/hooks/useFetch';
 
 const Index = () => {
+
+  const router = useRouter();
 
   const [userForm, setUserForm] = useState({
     firstName: "",
@@ -25,7 +30,10 @@ const Index = () => {
   const submitRegister = (e) => {
     e.preventDefault();
     fetchData();
-    console.log(data);
+    if (data) {
+      localStorage.setItem('token', data.token);
+      router.push('/account/profil')
+    }
   }
 
   return (
@@ -74,6 +82,14 @@ const Index = () => {
           className="btn__secondary"
         />
       </form>
+      {
+        error && (
+          <Notification type="warning" message={error.message} />
+        )
+      }
+      <p>
+        Vous avez déjà un compte ? <Link href="/auth/login">Connectez-vous ?</Link>
+      </p>
     </>
   );
 }

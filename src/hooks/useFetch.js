@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const useFetch = ({ url, method, body }) => {
+const useFetch = ({ url, method, body, token }) => {
   const [data, setData] = useState({});
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -10,7 +10,10 @@ const useFetch = ({ url, method, body }) => {
     try {
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}${url}`, {
         headers: {
-          "Content-Type":"Application/json"
+          "Content-Type": "Application/json",
+          ...token && {
+            "authorization":token
+          }
         },
         method: method,
         ...body && {
@@ -21,9 +24,11 @@ const useFetch = ({ url, method, body }) => {
       if (!dataJson.success) {
         throw new Error(dataJson.message);
       }
+      console.log(dataJson);
       setData(dataJson);
     }
     catch (error) {
+      console.log(error)
       setError(error)
     }
     finally {

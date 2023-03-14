@@ -1,31 +1,25 @@
 import { createContext, useState } from "react";
 
 const UserContext = createContext({
-  isLogged: true,
-  user: {
-    firstName:"Vincent"
-  }
+  isLogged: false,
+  user: {}
 });
 
 export default UserContext;
 
 export const UserContextProvider = ({ children }) => {
   
-  const [user, setUser] = useState({
-    firstName: "vincent"
-  });
+  const [user, setUser] = useState({});
 
-  const [isLogged, setIsLogged] = useState(true);
+  const [isLogged, setIsLogged] = useState(false);
 
-  const login = () => {
-    setIsLogged(
-      {isLogged:true}
-    )
+  const login = (data) => {
+    setUser(data)
+    setIsLogged(true)
   }
   const logout = () => {
-    setIsLogged(
-      {isLogged:false}
-    )
+    setIsLogged(false);
+    setUser({});
   }
 
   const context = {

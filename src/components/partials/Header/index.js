@@ -13,6 +13,8 @@ const Index = () => {
   
   const { user, isLogged } = useContext(UserContext);
 
+  console.log(user, isLogged, "header component");
+
   const menu = [
     {
       title: "Home",
@@ -41,7 +43,7 @@ const Index = () => {
           {
             isLogged ? (
               <p>
-                Bonjour {user.firstName}
+                Bonjour {user && user.firstName}
               </p>
             ) : (                
             <li className={styles.nav__item}>

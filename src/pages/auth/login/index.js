@@ -21,7 +21,6 @@ const Index = () => {
 
   useEffect(() => {
     if (data.token) {
-      console.log(data);
       localStorage.setItem('token', data.token);
       router.push('/account/profil');
     }

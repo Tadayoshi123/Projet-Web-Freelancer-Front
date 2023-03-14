@@ -12,6 +12,8 @@ const Index = () => {
   const router = useRouter();
 
   const { isLogged, user } = useContext(UserContext);
+  
+  console.log(isLogged, user, "account page");
 
   const [token, setToken] = useState();
 

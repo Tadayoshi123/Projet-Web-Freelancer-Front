@@ -23,7 +23,7 @@ export const UserContextProvider = ({ children }) => {
 
   useEffect(() => {
     const token = localStorage.getItem('token');
-    if (token) {
+    if (token && !isLogged ) {
       setToken(token)
     }
     else {
@@ -42,6 +42,7 @@ export const UserContextProvider = ({ children }) => {
     setUser(data)
     setIsLogged(true)
   }
+  
   const logout = () => {
     setIsLogged(false);
     setUser({});

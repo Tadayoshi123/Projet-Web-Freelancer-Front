@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import UserContext from "@/context/UserContext";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import useFetch from "@/hooks/useFetch";
@@ -12,19 +13,36 @@ const Index = () => {
 
   const router = useRouter();
 
+  const { login } = useContext(UserContext);
+
   const [userForm, setUserForm] = useState({
     email: "",
     password:""
   });
 
-  const {fetchData, data, error, loading} = useFetch({url:"/auth/login", method:"POST", body: userForm, token:null})
+  const [token, setToken] = useState();
+
+  const { fetchData, data, error, loading } = useFetch({ url: "/auth/login", method: "POST", body: userForm, token: null })
+  const { data: user, error: userError, loading:userLoading, fetchData:fetchDataUser } = useFetch({ url: "/user", method: "GET", body: null, token: token });
 
   useEffect(() => {
     if (data.token) {
-      localStorage.setItem('token', data.token);
+      setToken(data.token);
+      localStorage.setItem('token', data.token);     
+    }
+  }, [data]);
+
+  useEffect(() => {
+    fetchDataUser();
+    if (user.success) {
+      login({
+        firstName: user.user.firstName,
+        lastName: user.user.lastName,
+        email:user.user.email
+      })
       router.push('/account/profil');
     }
-  },[data])
+  },[token,user])
 
   const handleChange = (e) => {
     setUserForm({

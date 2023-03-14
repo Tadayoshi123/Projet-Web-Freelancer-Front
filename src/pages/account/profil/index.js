@@ -11,43 +11,28 @@ const Index = () => {
 
   const router = useRouter();
 
-  const { isLogged, user } = useContext(UserContext);
+  const { isLogged, user, updateUser } = useContext(UserContext);
   
-  console.log(isLogged, user, "account page");
-
   const [token, setToken] = useState();
 
   const [userForm, setUserForm] = useState();
 
   const [isOpen , setIsOpen] = useState(false);
 
-  const { data, error, loading, fetchData } = useFetch({ url:"/user", method:"GET", body:null, token:token });
-
   const {data: dataUpdate, error:errorUpdate, loading:loadingUpdate, fetchData:fetchDataUpdate} = useFetch({url:"/user", method:"PUT", body:userForm, token:token})
 
   useEffect(() => {
-    if (typeof window != undefined) {
-      setToken(localStorage.getItem("token"));
-    }
-    if (token) {
-      fetchData();
-    }
-  }, [router.isReady, token])
-
-  useEffect(() => {
-    setUserForm(data.user)
-  }, [data]);
+    setUserForm(user)
+  }, [user]);
   
   useEffect(() => {
     if (dataUpdate.success) {
       setIsOpen(false);
-      fetchData();
+      updateUser(dataUpdate.user)
     }
   }, [dataUpdate]);
 
-  if (loading || loadingUpdate) return <Loading />
-
-  if (error) console.log(error);
+  if (loadingUpdate) return <Loading />
   if (errorUpdate) console.log(errorUpdate);
 
   const handleChange = (e) => {
@@ -56,6 +41,8 @@ const Index = () => {
 
   const submitForm = (e) => {
     e.preventDefault();
+    const token = localStorage.getItem('token');
+    setToken(token);
     fetchDataUpdate();
     if (dataUpdate.success) {
       setIsOpen(false);
@@ -102,11 +89,11 @@ const Index = () => {
       }
       <p>Profil page</p>
       {
-        data.user && (
+        user && (
           <>
-            <p>Firstname : {data.user.firstName}</p>
-            <p>LastName : {data.user.lastName}</p>
-            <p>Email : {data.user.email}</p>
+            <p>Firstname : {user.firstName}</p>
+            <p>LastName : {user.lastName}</p>
+            <p>Email : {user.email}</p>
           </>
         )
       }

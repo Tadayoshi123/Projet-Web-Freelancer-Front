@@ -1,4 +1,6 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
+import { useRouter } from "next/router";
+import useFetch from "@/hooks/useFetch";
 
 const UserContext = createContext({
   isLogged: false,
@@ -8,10 +10,33 @@ const UserContext = createContext({
 export default UserContext;
 
 export const UserContextProvider = ({ children }) => {
+
+  const router = useRouter();
   
   const [user, setUser] = useState({});
 
+  const [token, setToken] = useState()
+
   const [isLogged, setIsLogged] = useState(false);
+
+  const { data, error, loading, fetchData } = useFetch({ url: "/user", method: "GET", body: null, token: token });
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      setToken(token)
+    }
+    else {
+      router.push("/auth/login")
+    }
+  }, [])
+  
+  useEffect(() => {
+    fetchData();
+    if (data.success) {
+      login(data.user);
+    } 
+  },[token, data])
 
   const login = (data) => {
     setUser(data)
@@ -20,13 +45,19 @@ export const UserContextProvider = ({ children }) => {
   const logout = () => {
     setIsLogged(false);
     setUser({});
+    localStorage.removeItem("token");
+    router.push('/auth/login')
+  }
+  const updateUser = (data) => {
+    setUser(data)
   }
 
   const context = {
     login, 
     logout, 
     user,
-    isLogged
+    isLogged,
+    updateUser
   }
 
   return (

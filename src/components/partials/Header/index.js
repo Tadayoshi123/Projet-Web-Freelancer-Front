@@ -11,9 +11,7 @@ const Index = () => {
   
   const router = useRouter();
   
-  const { user, isLogged } = useContext(UserContext);
-
-  console.log(user, isLogged, "header component");
+  const { user, isLogged, logout } = useContext(UserContext);
 
   const menu = [
     {
@@ -42,9 +40,14 @@ const Index = () => {
           }
           {
             isLogged ? (
-              <p>
-                Bonjour {user && user.firstName}
-              </p>
+              <li>
+                <p>
+                  Bonjour {user && user.firstName}
+                </p>
+                <Button type="button" title="logout" className="btn__primary" handleClick={
+                  () => logout()
+                } />
+              </li>
             ) : (                
             <li className={styles.nav__item}>
               <Button type="button" title="login" className="btn__primary" handleClick={

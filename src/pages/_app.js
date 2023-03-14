@@ -13,18 +13,17 @@ export default function App({ Component, pageProps }) {
       <UserContextProvider>
       {
         router.asPath.startsWith("/auth") ? (
-            <AuthLayout>
-                <Component {...pageProps} />
+          <AuthLayout>
+              <Component {...pageProps} />
           </AuthLayout>
         )
-          : (
-            
-              <MainLayout>
-                <Component {...pageProps} />
-              </MainLayout>
-          )
+        : (
+            <MainLayout>
+              <Component {...pageProps} />
+            </MainLayout>
+        )
         }
-        </UserContextProvider>
+      </UserContextProvider>
     </>
   )
 }

@@ -6,3 +6,6 @@
 --> Créer une page produit 
     - Et afficher ses données 
     doc : https://nextjs.org/docs/routing/dynamic-routes
+
+--> Finir l'authorisation des routes en créant en hook useAuth et qui permettrait de vérifier si j'ai un token et isLogged à false
+    -> On refetch + redirection etc...

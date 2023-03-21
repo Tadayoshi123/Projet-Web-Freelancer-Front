@@ -9,6 +9,10 @@
     vertical-align: middle;
     cursor: pointer;
     transition: 0.3s all;
+    &:disabled {
+        opacity: 0.5;
+        pointer-events: none;
+    }
     &__primary {
         background: black;
         color: white;

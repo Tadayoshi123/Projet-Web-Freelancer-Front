@@ -9,8 +9,6 @@ import Loading from "@/components/UI/Loading";
 
 const Index = () => {  
 
-  const router = useRouter();
-
   const { isLogged, user, updateUser } = useContext(UserContext);
   
   const [token, setToken] = useState();

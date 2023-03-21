@@ -22,21 +22,28 @@ export const UserContextProvider = ({ children }) => {
   const { data, error, loading, fetchData } = useFetch({ url: "/user", method: "GET", body: null, token: token });
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token && !isLogged) {
-      setToken(token)
+    if (typeof window !== 'undefined') {
+      const token = localStorage.getItem('token');
+      if (token) {
+        setToken(token);
+      }
+      else {
+        router.push("/auth/login")
+      }
     }
-    else {
-      router.push("/auth/login")
-    }
-  }, [!isLogged])
+  }, [])
   
   useEffect(() => {
-    fetchData();
-    if (data.success) {
+    if (token && !isLogged) {
+      fetchData();
+    }
+  }, [token]);
+
+  useEffect(() => {
+    if (data && data.success) {
       login(data.user);
-    } 
-  },[token, data])
+    }
+  }, [data]);
 
   const login = (data) => {
     setUser(data)

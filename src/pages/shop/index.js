@@ -10,7 +10,6 @@ const Index = () => {
   },[]);
 
   useEffect(() => {
-    console.log(data, "data");
   }, [data]);
 
   if(loading) <Loading/> 

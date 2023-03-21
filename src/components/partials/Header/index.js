@@ -41,9 +41,9 @@ const Index = () => {
           {
             isLogged ? (
               <li>
-                <p>
+                <span>
                   Bonjour {user && user.firstName}
-                </p>
+                </span>
                 <Button type="button" title="logout" className="btn__primary" handleClick={
                   () => logout()
                 } />

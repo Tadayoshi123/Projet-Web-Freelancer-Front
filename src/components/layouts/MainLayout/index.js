@@ -1,7 +1,7 @@
-import React from 'react';
 import Header from "@/components/partials/Header";
 
-const MainLayout = ({children}) => {
+const MainLayout = ({ children }) => {
+  
   return (
     <>
       <Header/>

@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 const useFetch = ({ url, method, body, token }) => {
+
   const [data, setData] = useState({});
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -24,7 +25,6 @@ const useFetch = ({ url, method, body, token }) => {
       if (!dataJson.success) {
         throw new Error(dataJson.message);
       }
-      console.log(dataJson);
       setData(dataJson);
     }
     catch (error) {

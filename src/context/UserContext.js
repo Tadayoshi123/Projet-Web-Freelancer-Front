@@ -23,13 +23,13 @@ export const UserContextProvider = ({ children }) => {
 
   useEffect(() => {
     const token = localStorage.getItem('token');
-    if (token && !isLogged ) {
+    if (token && !isLogged) {
       setToken(token)
     }
     else {
       router.push("/auth/login")
     }
-  }, [])
+  }, [!isLogged])
   
   useEffect(() => {
     fetchData();
@@ -42,7 +42,7 @@ export const UserContextProvider = ({ children }) => {
     setUser(data)
     setIsLogged(true)
   }
-  
+
   const logout = () => {
     setIsLogged(false);
     setUser({});

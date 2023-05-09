@@ -1,11 +1,15 @@
---> Créer une page Shop
-    - UseFetch pour récupérer les produits
-    - Afficher les porduits sous forme de grille dans la page -> Composant cardGrid (props un array d'object de produit)
-    - ProductCard (composant) (props un object)
-    - Au clique d'une card -> on renvoie vers la page de détail d'un produit.
---> Créer une page produit 
-    - Et afficher ses données 
-    doc : https://nextjs.org/docs/routing/dynamic-routes
+# Projet-Web-Freelancer-Front - DJOUDI Yanis
+## Fait
 
---> Finir l'authorisation des routes en créant en hook useAuth et qui permettrait de vérifier si j'ai un token et isLogged à false
-    -> On refetch + redirection etc...
+-Interface de connexion et d'inscription avec les deux types d'inscription d'utilisateurs (Company et Freelance)
+-Page de régénération de mot de passe
+-Page de profil avec modification des informations de l'utilisateur en fonction de s'il est une entreprise ou un freelance
+-Interface entreprise : CRUD mission
+## API
+
+L'API que j'ai utilisé pour réaliser ce projet est celle de mon camarade de classe car je n'ai pas réussi à utiliser la votre ou la mienne. :
+ [https://github.com/DamienDrozd/Evaluation_API_ExpressJS](https://github.com/DamienDrozd/Evaluation_API_ExpressJS)
+
+## Utilisation
+
+Après avoir cloné le projet ainsi que l'API, faire un ```npm install``` dans les deux projets et les lancer avec ```npm run dev```.

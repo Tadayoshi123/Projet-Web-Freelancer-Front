@@ -3,7 +3,7 @@
     padding: 10px 15px;
     font-size: 18px;
     font-weight: 400;
-    color: black;
+    color: #2B2D42;
     text-align: center;
     text-decoration: none;
     vertical-align: middle;
@@ -14,20 +14,32 @@
         pointer-events: none;
     }
     &__primary {
-        background: black;
-        color: white;
+        background: #2B2D42;
+        border: 1px solid #2B2D42;
+        // border-radius: 4px;
+        color: #EDF2F4;
         &:hover {
-            background: white;
-            border: 1px solid black;
-            color: black;
+            background: #EDF2F4;
+            border: 1px solid #2B2D42;
+            color: #2B2D42;
         }
     }
     &__secondary {
-        background: white;
-        border: 1px solid black;
+        background: #EDF2F4;
+        border: 1px solid #2B2D42;
         &:hover {
-            background: black;
-            color: white;
+            background: #2B2D42;
+            color: #EDF2F4;
+        }
+    }
+    &__logout {
+        background: #EF233C;
+        border: 1px solid #EF233C;
+        color: #EDF2F4;
+        &:hover {
+            background: #EDF2F4;
+            border: 1px solid #EF233C;
+            color: #EF233C;
         }
     }
 }

@@ -3,17 +3,17 @@
     border-radius: 4px;
     margin: 20px 0px;
     &.success {
-        border: 1px solid green;
-        background: green;
+        border: 1px solid #329F5B;
+        background: #329F5B;
         p {
-            color: white;
+            color: #EDF2F4;
         }
     }
     &.warning {
-        border: 1px solid red;
-        background: red;
+        border: 1px solid #D90429;
+        background: #D90429;
         p {
-            color: white;
+            color: #EDF2F4;
         }
     }
 }

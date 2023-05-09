@@ -1,15 +1,16 @@
-import React from 'react';
+import React from "react";
 import Image from "../../../../public/images/auth.png";
+import Logo from "../../../../public/images/logo/logo.svg";
 import styles from "./index.module.scss";
-
 
 const Index = ({ children }) => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.left__part}>
-        <div className={styles.form__wrapper}>
-        {children}
+        <div className={styles.logo}>
+          <img src={Logo.src} alt="Freelancer" />
         </div>
+        <div className={styles.form__wrapper}>{children}</div>
       </div>
       <div className={styles.right__part}>
         <div className={styles.wrapper}>
@@ -18,6 +19,6 @@ const Index = ({ children }) => {
       </div>
     </div>
   );
-}
+};
 
 export default Index;

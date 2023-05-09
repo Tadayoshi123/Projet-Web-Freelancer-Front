@@ -22,27 +22,20 @@ const Index = () => {
 
   const [token, setToken] = useState();
 
-  const { fetchData, data, error, loading } = useFetch({ url: "/auth/login", method: "POST", body: userForm, token: null })
-  const { data: user, error: userError, loading:userLoading, fetchData:fetchDataUser } = useFetch({ url: "/user", method: "GET", body: null, token: token });
+  const { fetchData, data, error, loading } = useFetch({ url: "/auth/login", method: "POST", body: userForm, token: null });
 
   useEffect(() => {
     if (data.token) {
       setToken(data.token);
-      localStorage.setItem('token', data.token);     
+      localStorage.setItem('token', data.token);
+      localStorage.setItem('user', JSON.stringify(data.user));
+      if (data.isAdmin){
+        router.push('/admin')
+      }
+      router.push('/account/profil');
     }
   }, [data]);
 
-  useEffect(() => {
-    fetchDataUser();
-    if (user.success) {
-      login({
-        firstName: user.user.firstName,
-        lastName: user.user.lastName,
-        email:user.user.email
-      })
-      router.push('/account/profil');
-    }
-  },[token,user])
 
   const handleChange = (e) => {
     setUserForm({
@@ -65,7 +58,7 @@ const Index = () => {
         label="Email"
         type="email" 
         name="email" 
-        placeholder="veuillez saisir votre email"
+        placeholder="enter your email address"
         required={true}
         onChange={(e) => handleChange(e)}
         value={userForm.email}
@@ -74,14 +67,14 @@ const Index = () => {
           label="Password"
           type="password"
           name="password"
-          placeholder="veuillez saisir votre mot de passe"
+          placeholder="enter your password"
           required={true}
           onChange={(e) => handleChange(e)}
           value={userForm.password}
         />
         <Button
           type="submit"
-          title="Se connecter"
+          title="Sign in"
           className="btn__secondary"
         />
       </form>
@@ -90,8 +83,9 @@ const Index = () => {
           <Notification type="warning" message={error.message}/>
         )
       }
+      <Link href="/auth/passwordForgot">I forgot my password</Link>
       <p>
-        Vous n'avez pas de compte ? <Link href="/auth/register">Inscrivez-vous ?</Link>
+        No account ? <Link href="/auth/register">Sign up now</Link>
       </p>
     </>
   );

@@ -1,0 +1,18 @@
+// scss for the Select component that will behave like a dropdown/select menu
+.wrapper {
+    label {
+        display: block;
+    }
+    select {
+        width: 100%;
+        padding: 8px 12px;
+        font-size: 15px;
+        font-weight: 400;
+        line-height: 22px;
+        background-color: #EF233C;
+        color: #EDF2F4;
+        border-radius: 4px;
+        transition: border-color .5s;
+        cursor: pointer;
+    }
+}

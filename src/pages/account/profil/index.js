@@ -1,107 +1,117 @@
-import { useEffect, useState, useContext } from "react";
+import styles from "./index.module.scss";
+import { useState, useContext } from "react";
 import UserContext from "@/context/UserContext";
-import {useRouter} from "next/router";
-import useFetch from "@/hooks/useFetch";
-import Input from "@/components/UI/Input";
 import Button from "@/components/UI/Button";
-import Modal from "@/components/UI/Modal";
-import Loading from "@/components/UI/Loading";
+import Title from "@/components/UI/Title";
 
-const Index = () => {  
+import EditProfile from "@/components/EditModals/EditProfile";
+import EditCompany from "@/components/EditModals/EditCompany";
 
-  const { isLogged, user, updateUser } = useContext(UserContext);
-  
-  const [token, setToken] = useState();
+const Index = () => {
+  const { isLogged, user, fetchUser } = useContext(UserContext);
+  const [isOpenUser, setIsOpenUser] = useState(false);
+  const [isOpenCompany, setIsOpenCompany] = useState(false);
 
-  const [userForm, setUserForm] = useState();
-
-  const [isOpen , setIsOpen] = useState(false);
-
-  const {data: dataUpdate, error:errorUpdate, loading:loadingUpdate, fetchData:fetchDataUpdate} = useFetch({url:"/user", method:"PUT", body:userForm, token:token})
-
-  useEffect(() => {
-    setUserForm(user)
-  }, [user]);
-  
-  useEffect(() => {
-    if (dataUpdate.success) {
-      setIsOpen(false);
-      updateUser(dataUpdate.user)
-    }
-  }, [dataUpdate]);
-
-  if (loadingUpdate) return <Loading />
-  if (errorUpdate) console.log(errorUpdate);
-
-  const handleChange = (e) => {
-    setUserForm({ ...userForm, [e.target.name]: e.target.value })
-  }
-
-  const submitForm = (e) => {
-    e.preventDefault();
-    const token = localStorage.getItem('token');
-    setToken(token);
-    fetchDataUpdate();
-    if (dataUpdate.success) {
-      setIsOpen(false);
-    }
-  }
-  
   return (
-    <div>
-      {
-        isOpen && (
-          <Modal title="Modifier mon profil" closeModal={()=>setIsOpen(false)}>
-            <form onSubmit={(e) => {submitForm(e)}}>
-              <Input 
-              label="firstName" 
-              type="text" 
-              name="firstName" 
-              value={userForm.firstName}
-              isRequired={true}
-              placeholder="enter your firstName"
-              onChange={(e) => handleChange(e)}
-              />
-              <Input 
-              label="lastName" 
-              type="text" 
-              name="lastName" 
-              value={userForm.lastName}
-              isRequired={true}
-              placeholder="enter your lastName"
-              onChange={(e) => handleChange(e)}
-              />
-              <Input 
-              label="email" 
-              type="text" 
-              name="email" 
-              value={userForm.email}
-              isRequired={true}
-              placeholder="enter your email"
-              onChange={(e) => handleChange(e)}
-              />
-              <Button type="submit" title="modifier" className="btn__primary"/>
-           </form>
-          </Modal>
-        )
-      }
-      <p>Profil page</p>
-      {
-        user && (
+    <div className={styles.wrapper}>
+      {isOpenUser && <EditProfile setIsOpen={setIsOpenUser} />}
+      {isOpenCompany && (
+        <EditCompany
+          setIsOpen={setIsOpenCompany}
+          Company={user?.company}
+          isAdmin={false}
+          updateCompany={fetchUser}
+        />
+      )}
+      <Title title="Profile" Level="h1" />
+      <div className={styles.wrapperContent}>
+        <div className={styles.info}>
+          {user && (
+            <div className={styles.infoContainer}>
+              <Title title="User information" Level="h2" />
+              <div className={styles.infoContent}>
+                <div className={styles.part1}>
+                  <p>First Name : {user?.firstName}</p>
+                  <p>Last Name : {user?.lastName}</p>
+                  <p>Email : {user?.email}</p>
+                  <p>Phone : {user?.phone}</p>
+                </div>
+                <div className={styles.part2}>
+                  <p>Address : {user?.address}</p>
+                  <p>Postal Code : {user?.postcode}</p>
+                  <p>City : {user?.city}</p>
+                </div>
+              </div>
+            </div>
+          )}
+          {user?.freelance != null && (
+            <div className={styles.infoContainer}>
+              <Title title="Freelance information" Level="h2" />
+              <div className={styles.infoContent}>
+                <div className={styles.part1}>
+                  <p>
+                    Years of experience : {user?.freelance.experience_years}{" "}
+                  </p>
+                  <p>Price : {user?.freelance.price}</p>
+                </div>
+                <div className={styles.part2}>
+                  <p>
+                    Jobs :
+                    {user?.freelance.jobs.map((job) => {
+                      return <p key={job.id}>{job.name}</p>;
+                    })}
+                  </p>
+                  <p>
+                    Skills :
+                    {user?.freelance.skills.map((skill) => {
+                      return <p key={skill.id}>{skill.name}</p>;
+                    })}
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
+          <Button
+            title="Edit User"
+            className="btn__primary"
+            type="button"
+            handleClick={() => {
+              setIsOpenUser(true);
+            }}
+          />
+        </div>
+        {user?.company != null && (
           <>
-            <p>Firstname : {user.firstName}</p>
-            <p>LastName : {user.lastName}</p>
-            <p>Email : {user.email}</p>
+            <div className={styles.info}>
+              <div className={styles.infoContainer}>
+                <Title title="Company information" Level="h2" />
+                <div className={styles.infoContent}>
+                  <div className={styles.part1}>
+                    <p>Name : {user?.company.name}</p>
+                    <p>Status : {user?.company.status}</p>
+                    <p>Siret : {user?.company.siret}</p>
+                  </div>
+                  <div className={styles.part2}>
+                    <p>Address : {user?.company.address}</p>
+                    <p>City : {user?.company.city}</p>
+                    <p>Postal Code : {user?.company.postcode}</p>
+                  </div>
+                </div>
+              </div>
+              <Button
+                type="button"
+                title="Edit Company"
+                className="btn__primary"
+                handleClick={() => {
+                  setIsOpenCompany(true);
+                }}
+              />
+            </div>
           </>
-        )
-      }
-      <Button title="modifier" className="btn__primary" type="button" handleClick={ 
-        () => {
-          setIsOpen(true);
-        }
-      } />
+        )}
+      </div>
     </div>
   );
-}
+};
 
 export default Index;

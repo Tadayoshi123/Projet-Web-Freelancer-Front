@@ -4,25 +4,37 @@
     align-items: inherit;
     height: 100vh;
     align-items: center;
+    a {
+        color: #EF233C;
+        text-decoration: none;
+        font-weight: 600;
+    }
     .left__part {
         width: 50%;
         height: 100%;
         position: relative;
         display: flex;
         align-items: center;
+        .logo {
+            position: absolute;
+            top: 0;
+            left: 0;
+            margin: 20px;
+            width: 120px;
+        }
         .form__wrapper {
             width: 350px;
             margin: 0 auto;
         }
     }
     .right__part {
-        width: 50%;
-        background-color: #fdffd0;
+        width: 60%;
+        background-color: white;
         .wrapper {
             justify-content: center;
         }
         img {
-            width: 150px;
+            width: 100%;
             height: auto;
         }
     }
